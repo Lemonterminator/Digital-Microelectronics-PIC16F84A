@@ -1,0 +1,19 @@
+v 4
+file . "tb_hello.vhd" "7310610422cb4a97dee33d68f4859d803027cc29" "20260223190933.492":
+  entity tb_hello at 1( 0) + 0 on 45;
+  architecture behavioural of tb_hello at 7( 85) + 0 on 46;
+file . "nand_gate.vhd" "932049d73af48308771a689947591cee7ff926f1" "20260223190933.492":
+  entity nand_gate at 1( 0) + 0 on 43;
+  architecture rtl of nand_gate at 13( 191) + 0 on 44;
+file . "and_gate.vhd" "21eb48544a9d983808d1d4d90cc26f8f64ad259c" "20260223190933.492":
+  entity and_gate at 1( 0) + 0 on 41;
+  architecture rtl of and_gate at 13( 188) + 0 on 42;
+file . "or_gate.vhd" "c0536cea7b912bbf858e106dcc6de5484904d219" "20260223190933.492":
+  entity or_gate at 1( 0) + 0 on 39;
+  architecture rtl of or_gate at 13( 185) + 0 on 40;
+file . "xor_gate.vhd" "26f942570bdd76c9a8d81225819c835b4df31ee7" "20260223190933.492":
+  entity xor_gate at 1( 0) + 0 on 37;
+  architecture rtl of xor_gate at 13( 188) + 0 on 38;
+file . "not_gate.vhd" "004234718c188e86f8acce0a54dfa6fb84e42521" "20260223190933.492":
+  entity not_gate at 1( 0) + 0 on 35;
+  architecture rtl of not_gate at 12( 163) + 0 on 36;

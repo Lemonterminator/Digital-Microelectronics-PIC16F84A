@@ -3,6 +3,7 @@
 #include <string>
 #include <vector>
 #include "logic_gate.h"
+#include <array>
 
 struct Sample {
   int t_ns;
@@ -11,7 +12,8 @@ struct Sample {
   int y;
 };
 
-static void write_vcd(const std::string& path, const std::vector<Sample>& samples) {
+// static void write_vcd(const std::string& path, const std::vector<Sample>& samples) {
+static void write_vcd(const std::string& path, const std::array<Sample, 4>& samples) {
   std::ofstream vcd(path);
   if (!vcd) {
     throw std::runtime_error("Failed to open VCD output");
@@ -45,7 +47,8 @@ static void write_vcd(const std::string& path, const std::vector<Sample>& sample
 }
 
 int main() {
-  std::vector<Sample> samples;
+  // std::vector<Sample> samples;
+  std::array<Sample, 4> samples{};
 
   const int vectors[4][2] = {{0, 0}, {0, 1}, {1, 0}, {1, 1}};
   for (int i = 0; i < 4; ++i) {
@@ -54,10 +57,12 @@ int main() {
     // const int y = a ^ b;
     const int x = xor_gate(a, b);
     const int y = not_gate(x);
-    
+
     const int t_ns = i * 10;
 
-    samples.push_back({t_ns, a, b, y});
+    // samples.push_back({t_ns, a, b, y});
+
+    samples[i] = {t_ns, a, b, y};
 
     std::cout << "t=" << t_ns << "ns  a=" << a << " b=" << b << " y=" << y << "\n";
   }

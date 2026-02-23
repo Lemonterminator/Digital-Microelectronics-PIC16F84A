@@ -1,7 +1,12 @@
 v 4
-file . "hello.vhd" "1d7f51995b168bf963bdf9057cd66ba619cae7b2" "20260221064541.027":
-  entity hello at 1( 0) + 0 on 15;
-  architecture rtl of hello at 12( 155) + 0 on 16;
-file . "tb_hello.vhd" "02a7bbd58b109edb9be75508bf73edaae3b155af" "20260221064541.027":
-  entity tb_hello at 1( 0) + 0 on 17;
-  architecture sim of tb_hello at 7( 76) + 0 on 18;
+file . "tb_hello.vhd" "c88d3fa1b8c40f206e48320a15fb627359f0020e" "20260223185437.481":
+  entity tb_hello at 1( 0) + 0 on 26;
+  architecture sim of tb_hello at 7( 76) + 0 on 27;
+file . "hello.vhd" "babb5693daf4d0dca9b32303215fcdc74f0d5a6b" "20260223185437.481":
+  entity gate_1bit at 1( 0) + 0 on 19;
+  entity gate_2bit at 11( 135) + 0 on 20;
+  architecture not_gate of gate_1bit at 22( 294) + 0 on 21;
+  architecture xor_gate of gate_2bit at 27( 371) + 0 on 22;
+  architecture or_gate of gate_2bit at 32( 450) + 0 on 23;
+  architecture and_gate of gate_2bit at 37( 527) + 0 on 24;
+  architecture nand_gate of gate_2bit at 42( 606) + 0 on 25;
