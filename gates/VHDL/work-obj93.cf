@@ -1,0 +1,7 @@
+v 4
+file . "hello.vhd" "1d7f51995b168bf963bdf9057cd66ba619cae7b2" "20260221064541.027":
+  entity hello at 1( 0) + 0 on 15;
+  architecture rtl of hello at 12( 155) + 0 on 16;
+file . "tb_hello.vhd" "02a7bbd58b109edb9be75508bf73edaae3b155af" "20260221064541.027":
+  entity tb_hello at 1( 0) + 0 on 17;
+  architecture sim of tb_hello at 7( 76) + 0 on 18;
