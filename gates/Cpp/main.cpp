@@ -2,6 +2,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include "logic_gate.h"
 
 struct Sample {
   int t_ns;
@@ -50,7 +51,10 @@ int main() {
   for (int i = 0; i < 4; ++i) {
     const int a = vectors[i][0];
     const int b = vectors[i][1];
-    const int y = a ^ b;
+    // const int y = a ^ b;
+    const int x = xor_gate(a, b);
+    const int y = not_gate(x);
+    
     const int t_ns = i * 10;
 
     samples.push_back({t_ns, a, b, y});
