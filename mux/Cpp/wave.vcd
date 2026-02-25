@@ -1,0 +1,36 @@
+$date
+  Wed Feb 25 2026
+$end
+$version
+  cpp-mux-tb
+$end
+$timescale
+  1ns
+$end
+$scope module tb_cpp $end
+$var wire 8 ! a $end
+$var wire 8 " b $end
+$var wire 1 # s $end
+$var wire 8 $ q $end
+$upscope $end
+$enddefinitions $end
+#0
+b10110000 !
+b01001101 "
+0#
+b10110000 $
+#10
+b10110000 !
+b01001101 "
+1#
+b01001101 $
+#20
+b01010011 !
+b10101100 "
+0#
+b01010011 $
+#30
+b01010011 !
+b10101100 "
+1#
+b10101100 $

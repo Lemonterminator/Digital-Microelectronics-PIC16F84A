@@ -1,0 +1,63 @@
+#! /usr/bin/vvp
+:ivl_version "12.0 (stable)";
+:ivl_delay_selection "TYPICAL";
+:vpi_time_precision - 12;
+:vpi_module "/usr/lib/x86_64-linux-gnu/ivl/system.vpi";
+:vpi_module "/usr/lib/x86_64-linux-gnu/ivl/vhdl_sys.vpi";
+:vpi_module "/usr/lib/x86_64-linux-gnu/ivl/vhdl_textio.vpi";
+:vpi_module "/usr/lib/x86_64-linux-gnu/ivl/v2005_math.vpi";
+:vpi_module "/usr/lib/x86_64-linux-gnu/ivl/va_math.vpi";
+:vpi_module "/usr/lib/x86_64-linux-gnu/ivl/v2009.vpi";
+S_0x6493a5233300 .scope package, "$unit" "$unit" 2 1;
+ .timescale 0 0;
+S_0x6493a5233490 .scope module, "tb_mux" "tb_mux" 3 3;
+ .timescale -9 -12;
+v0x6493a5244370_0 .var "A", 7 0;
+v0x6493a5244450_0 .var "B", 7 0;
+v0x6493a5244520_0 .net "Q", 7 0, L_0x6493a52446f0;  1 drivers
+v0x6493a5244620_0 .var "s", 0 0;
+S_0x6493a51f8490 .scope module, "dut" "mux_8_bit" 3 9, 4 1 0, S_0x6493a5233490;
+ .timescale -9 -12;
+    .port_info 0 /INPUT 1 "s";
+    .port_info 1 /INPUT 8 "A";
+    .port_info 2 /INPUT 8 "B";
+    .port_info 3 /OUTPUT 8 "Q";
+v0x6493a51f86e0_0 .net "A", 7 0, v0x6493a5244370_0;  1 drivers
+v0x6493a5244030_0 .net "B", 7 0, v0x6493a5244450_0;  1 drivers
+v0x6493a5244110_0 .net "Q", 7 0, L_0x6493a52446f0;  alias, 1 drivers
+v0x6493a5244200_0 .net "s", 0 0, v0x6493a5244620_0;  1 drivers
+L_0x6493a52446f0 .functor MUXZ 8, v0x6493a5244370_0, v0x6493a5244450_0, v0x6493a5244620_0, C4<>;
+    .scope S_0x6493a5233490;
+T_0 ;
+    %pushi/vec4 0, 0, 1;
+    %store/vec4 v0x6493a5244620_0, 0, 1;
+    %pushi/vec4 0, 0, 8;
+    %store/vec4 v0x6493a5244370_0, 0, 8;
+    %pushi/vec4 0, 0, 8;
+    %store/vec4 v0x6493a5244450_0, 0, 8;
+    %end;
+    .thread T_0, $init;
+    .scope S_0x6493a5233490;
+T_1 ;
+    %vpi_call/w 3 16 "$dumpfile", "wave.vcd" {0 0 0};
+    %vpi_call/w 3 17 "$dumpvars", 32'sb00000000000000000000000000000000, S_0x6493a5233490 {0 0 0};
+    %pushi/vec4 60, 0, 8;
+    %store/vec4 v0x6493a5244370_0, 0, 8;
+    %pushi/vec4 165, 0, 8;
+    %store/vec4 v0x6493a5244450_0, 0, 8;
+    %pushi/vec4 0, 0, 1;
+    %store/vec4 v0x6493a5244620_0, 0, 1;
+    %delay 10000, 0;
+    %pushi/vec4 1, 0, 1;
+    %store/vec4 v0x6493a5244620_0, 0, 1;
+    %delay 10000, 0;
+    %vpi_call/w 3 21 "$finish" {0 0 0};
+    %end;
+    .thread T_1;
+# The file index is used to find the file name in the following table.
+:file_names 5;
+    "N/A";
+    "<interactive>";
+    "-";
+    "tb_mux.v";
+    "mux.v";
