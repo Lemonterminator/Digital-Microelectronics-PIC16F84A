@@ -12,5 +12,7 @@ end entity mux_8_bit;
 
 architecture rtl of mux_8_bit is
 begin
-    Q <= B when s = '1' else A;
+    Q   <=  A when s = '0' else 
+        <=  B when s = '1' else
+        (others =>'0');
 end architecture rtl;

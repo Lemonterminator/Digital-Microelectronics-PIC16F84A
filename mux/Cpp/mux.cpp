@@ -22,7 +22,13 @@ std::vector<int> mux(const std::vector<int> & A, const std::vector<int> & B, boo
         if ((A[i] != 0 && A[i] != 1) || (B[i] != 0 && B[i] != 1)) {
             throw std::invalid_argument("A and B must contain only 0/1");
         }
-        q[i] = ((nsel & A[i])|(sel & B[i]));
+        if (s==0){
+            q[i]=A[i];
+        } else if (s==1){
+            q[i]=B[i];
+        } else {
+            q[i]=0;
+        }
     }
     return q;
 };
@@ -43,7 +49,13 @@ std::array<uint8_t, 8> mux_8_bit(   const std::array<uint8_t, 8> & A,
         if ((A[i] != 0 && A[i] != 1) || (B[i] != 0 && B[i] != 1)) {
             throw std::invalid_argument("A and B must contain only 0/1");
         }
-        q[i] = ((nsel & A[i])|(sel & B[i]));
+        if (s==0){
+            q[i]=A[i];
+        } else if (s==1){
+            q[i]=B[i];
+        } else {
+            q[i]=0;
+        }
     }
     return q;
 
