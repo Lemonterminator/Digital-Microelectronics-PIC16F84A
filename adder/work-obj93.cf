@@ -1,0 +1,13 @@
+v 4
+file . "VHDL/full_adder.vhd" "9450c8fa97e96d534687687f31e61a4a6ebd8499" "20260314100121.465":
+  entity full_adder at 1( 0) + 0 on 19;
+  architecture rtl of full_adder at 14( 251) + 0 on 20;
+file . "VHDL/n_bit_rca.vhd" "38132782efbf0eb42b344b7dde27d5521562d9d6" "20260314100121.465":
+  entity n_bit_rca at 1( 0) + 0 on 21;
+  architecture structural of n_bit_rca at 16( 336) + 0 on 22;
+file . "VHDL/n_bit_adder.vhd" "5069e1d2dae001dc5b28c408e0726f99f7b7f3d8" "20260314100121.465":
+  entity n_bit_adder at 1( 0) + 0 on 23;
+  architecture rtl of n_bit_adder at 17( 366) + 0 on 24;
+file . "VHDL/tb_adder_csv.vhd" "98c9e39065ed3877da3517363fc5c07c48bb3299" "20260314100121.466":
+  entity tb_adder_csv at 1( 0) + 0 on 25;
+  architecture behavioural of tb_adder_csv at 9( 139) + 0 on 26;
