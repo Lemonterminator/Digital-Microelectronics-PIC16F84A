@@ -104,24 +104,61 @@ void ALU::updateZeroFlag(std::uint8_t result, Status& status) {
 AluResult ALU::add8(std::uint8_t lhs, std::uint8_t rhs, Status status_in) {
     std::uint16_t sum = static_cast<std::uint16_t>(lhs) + static_cast<std::uint16_t>(rhs);
     std::uint8_t result = sum & 0xFF;
+    bool c = (sum > 0x00FFu);
+    bool dc = (((lhs & 0x0Fu) + (rhs & 0x0Fu)) > 0x0Fu);
+    bool z = (result == 0u);
 
-    return AluResult{result, status_in, false};
+    Status status = status_in;
+    status.c = c;
+    status.dc = dc;
+    status.z = z;
+    return AluResult{result, status, false};
 }
 
 AluResult ALU::sub8(std::uint8_t lhs, std::uint8_t rhs, Status status_in) {
-    return AluResult{static_cast<std::uint8_t>(lhs - rhs), status_in, false};
+    const std::uint8_t result = static_cast<std::uint8_t>(lhs - rhs);
+
+    Status status = status_in;
+    status.z = (result == 0u);
+    status.c = (lhs >= rhs);
+    status.dc = ((lhs & 0x0Fu) >= (rhs & 0x0Fu));
+
+    return AluResult{result, status, false};
 }
 
+
 AluResult ALU::rotateLeftThroughCarry(std::uint8_t value, Status status_in) {
-    return AluResult{value, status_in, false};
+    const bool old_msb = ((value & 0x80u) != 0u);
+
+    std::uint8_t rotated = static_cast<std::uint8_t>(value << 1);
+
+    if (status_in.c) {
+        rotated = static_cast<std::uint8_t>(rotated | 0x01u);
+    }
+
+    Status status = status_in;
+    status.c = old_msb;
+
+    return AluResult{rotated, status, false};
 }
 
 AluResult ALU::rotateRightThroughCarry(std::uint8_t value, Status status_in) {
-    return AluResult{value, status_in, false};
+    const bool old_lsb = ((value & 0x01u) != 0u);
+    std::uint8_t rotated = static_cast<std::uint8_t> (value >> 1);
+
+    if (status_in.c) {
+        rotated = static_cast<std::uint8_t>(rotated | 0x80u);
+    }
+
+    Status status = status_in;
+    status.c = old_lsb;
+
+    return AluResult{rotated, status, false};
 }
 
 AluResult ALU::swapNibbles(std::uint8_t value, Status status_in) {
-    return AluResult{value, status_in, false};
+    std::uint8_t swapped = static_cast<std::uint8_t>((value << 4) | (value>>4));
+    return AluResult{swapped, status_in, false};
 }
 
 AluResult ALU::clearBit(std::uint8_t value, std::uint8_t bit_index, Status status_in) {
