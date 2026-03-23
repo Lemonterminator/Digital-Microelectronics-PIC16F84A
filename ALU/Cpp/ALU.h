@@ -101,9 +101,11 @@ struct Status {
 // Full combinational ALU input bundle.
 //
 // a:
-//   Usually the file register operand f.
+//   Usually the file register operand f. For subtraction-style operations this
+//   is the minuend, because the ALU core consistently computes a op b.
 // b:
-//   Usually W or the literal operand k, depending on instruction decoding.
+//   Usually W or the literal operand k, depending on instruction decoding. For
+//   SUBLW specifically, feed b = W and a = literal so the helper performs a-b.
 // op:
 //   Selected ALU operation from the assignment enum.
 // bit_select:
@@ -143,6 +145,11 @@ public:
     static AluResult execute(const AluInput& input);
 
 private:
+    // The exercise models bit_select as a 3-bit signal. This helper keeps the
+    // software model aligned with that contract even though the C++ field is
+    // stored in a full byte.
+    static std::uint8_t normalizeBitIndex(std::uint8_t bit_index);
+
     // Read one bit from an 8-bit value.
     // bit_index is expected to be in [0, 7].
     static std::uint8_t getBit(std::uint8_t value, std::uint8_t bit_index);
@@ -197,8 +204,8 @@ private:
     // COMF computes the one's complement of the operand and updates Z.
     static AluResult complement(std::uint8_t value, Status status_in);
 
-    // DECF / DECFSZ and INCF / INCFSZ share core arithmetic. The skip_if_zero
-    // parameter lets us reuse one helper for the normal and skip variants.
+    // DECF / DECFSZ and INCF / INCFSZ share core arithmetic. On PIC16F84A the
+    // skip variants do not update status bits, while DECF/INCF update only Z.
     static AluResult decrement(std::uint8_t value, Status status_in, bool skip_if_zero);
     static AluResult increment(std::uint8_t value, Status status_in, bool skip_if_zero);
 
@@ -208,8 +215,9 @@ private:
     static AluResult bitwiseXor(std::uint8_t lhs, std::uint8_t rhs, Status status_in);
 
     // Generic placeholder used by NOP and by control-flow instructions that are
-    // outside the scope of this ALU-only exercise.
-    static AluResult passthrough(Status status_in);
+    // outside the scope of this ALU-only exercise. The value is forwarded so
+    // the datapath stays non-destructive in the software model.
+    static AluResult passthrough(std::uint8_t value, Status status_in);
 };
 
 }  // namespace pic16f84a

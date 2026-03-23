@@ -1,5 +1,4 @@
 #include "ALU.h"
-#include "ALU.h"
 
 namespace pic16f84a {
 
@@ -60,7 +59,7 @@ AluResult ALU::execute(const AluInput& input) {
         case AluOp::GOTO:
         case AluOp::RETUR:
         case AluOp::NOP:
-            return passthrough(input.status_in);
+            return passthrough(input.a, input.status_in);
 
         case AluOp::RLF:
             return rotateLeftThroughCarry(input.a, input.status_in);
@@ -80,15 +79,21 @@ AluResult ALU::execute(const AluInput& input) {
             return bitwiseXor(input.a, input.b, input.status_in);
     }
 
-    return passthrough(input.status_in);
+    return passthrough(input.a, input.status_in);
+}
+
+std::uint8_t ALU::normalizeBitIndex(std::uint8_t bit_index) {
+    return static_cast<std::uint8_t>(bit_index & 0x07u);
 }
 
 std::uint8_t ALU::getBit(std::uint8_t value, std::uint8_t bit_index) {
-    return static_cast<std::uint8_t>((value >> bit_index) & 0x01u);
+    const std::uint8_t normalized_index = normalizeBitIndex(bit_index);
+    return static_cast<std::uint8_t>((value >> normalized_index) & 0x01u);
 }
 
 std::uint8_t ALU::setBit(std::uint8_t value, std::uint8_t bit_index, bool bit_value) {
-    const std::uint8_t mask = static_cast<std::uint8_t>(1u << bit_index);
+    const std::uint8_t normalized_index = normalizeBitIndex(bit_index);
+    const std::uint8_t mask = static_cast<std::uint8_t>(1u << normalized_index);
 
     if (bit_value) {
         return static_cast<std::uint8_t>(value | mask);
@@ -102,11 +107,11 @@ void ALU::updateZeroFlag(std::uint8_t result, Status& status) {
 }
 
 AluResult ALU::add8(std::uint8_t lhs, std::uint8_t rhs, Status status_in) {
-    std::uint16_t sum = static_cast<std::uint16_t>(lhs) + static_cast<std::uint16_t>(rhs);
-    std::uint8_t result = sum & 0xFF;
-    bool c = (sum > 0x00FFu);
-    bool dc = (((lhs & 0x0Fu) + (rhs & 0x0Fu)) > 0x0Fu);
-    bool z = (result == 0u);
+    const std::uint16_t sum = static_cast<std::uint16_t>(lhs) + static_cast<std::uint16_t>(rhs);
+    const std::uint8_t result = static_cast<std::uint8_t>(sum & 0x00FFu);
+    const bool c = (sum > 0x00FFu);
+    const bool dc = (((lhs & 0x0Fu) + (rhs & 0x0Fu)) > 0x0Fu);
+    const bool z = (result == 0u);
 
     Status status = status_in;
     status.c = c;
@@ -196,33 +201,57 @@ AluResult ALU::clear(Status status_in) {
 }
 
 AluResult ALU::complement(std::uint8_t value, Status status_in) {
-    return AluResult{static_cast<std::uint8_t>(~value), status_in, false};
+    const std::uint8_t result = static_cast<std::uint8_t>(~value);
+    Status status = status_in;
+    updateZeroFlag(result, status);
+    return AluResult{result, status, false};
 }
 
 AluResult ALU::decrement(std::uint8_t value, Status status_in, bool skip_if_zero) {
     const std::uint8_t next_value = static_cast<std::uint8_t>(value - 1u);
-    return AluResult{next_value, status_in, skip_if_zero && (next_value == 0u)};
+    Status status = status_in;
+
+    if (!skip_if_zero) {
+        updateZeroFlag(next_value, status);
+    }
+
+    return AluResult{next_value, status, skip_if_zero && (next_value == 0u)};
 }
 
 AluResult ALU::increment(std::uint8_t value, Status status_in, bool skip_if_zero) {
     const std::uint8_t next_value = static_cast<std::uint8_t>(value + 1u);
-    return AluResult{next_value, status_in, skip_if_zero && (next_value == 0u)};
+    Status status = status_in;
+
+    if (!skip_if_zero) {
+        updateZeroFlag(next_value, status);
+    }
+
+    return AluResult{next_value, status, skip_if_zero && (next_value == 0u)};
 }
 
 AluResult ALU::bitwiseAnd(std::uint8_t lhs, std::uint8_t rhs, Status status_in) {
-    return AluResult{static_cast<std::uint8_t>(lhs & rhs), status_in, false};
+    const std::uint8_t result = static_cast<std::uint8_t>(lhs & rhs);
+    Status status = status_in;
+    updateZeroFlag(result, status);
+    return AluResult{result, status, false};
 }
 
 AluResult ALU::bitwiseOr(std::uint8_t lhs, std::uint8_t rhs, Status status_in) {
-    return AluResult{static_cast<std::uint8_t>(lhs | rhs), status_in, false};
+    std::uint8_t result = static_cast<std::uint8_t>(lhs | rhs);
+    Status status = status_in;
+    updateZeroFlag(result, status);
+    return AluResult{result, status, false};
 }
 
 AluResult ALU::bitwiseXor(std::uint8_t lhs, std::uint8_t rhs, Status status_in) {
-    return AluResult{static_cast<std::uint8_t>(lhs ^ rhs), status_in, false};
+    std::uint8_t result = static_cast<std::uint8_t>(lhs ^ rhs);
+    Status status = status_in;
+    updateZeroFlag(result, status);
+    return AluResult{result, status, false};
 }
 
-AluResult ALU::passthrough(Status status_in) {
-    return AluResult{0u, status_in, false};
+AluResult ALU::passthrough(std::uint8_t value, Status status_in) {
+    return AluResult{value, status_in, false};
 }
 
 }  // namespace pic16f84a
