@@ -1,0 +1,10 @@
+v 4
+file / "/home/linan/DMII/ALU/VHDL/tb_ex04.vhd" "c32d3ba86de73d1afa2af334521db6c470b7bcef" "20260328140014.328":
+  entity tb_ex04 at 1( 0) + 0 on 25;
+  architecture behavioral of tb_ex04 at 12( 166) + 0 on 26;
+file / "/home/linan/DMII/ALU/VHDL/alu.vhd" "cf5259b1a6947c13c53e1ec82603ba980da57986" "20260328140014.321":
+  entity alu at 1( 0) + 0 on 23;
+  architecture rtl of alu at 21( 518) + 0 on 24;
+file / "/home/linan/DMII/ALU/VHDL/alu_pkg.vhd" "9194c8a620618c46071634d9beaefc33dad0a9b2" "20260328140014.314":
+  package alu_pkg at 1( 0) + 0 on 21;
+  package body alu_pkg at 23( 597) + 0 on 22;

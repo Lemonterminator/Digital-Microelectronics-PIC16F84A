@@ -1,0 +1,21 @@
+# Program file for toplevel_alu_mem.
+# Columns:
+#   op w_in addr mem_re mem_we bit_select
+
+ADDWF 15 16 1 1 0
+ANDWF 240 16 1 1 0
+BCF 170 3 1 1 1
+BTFSC 7 3 1 0 2
+BTFSS 4 3 1 0 2
+CLRF 85 20 1 1 0
+INCF 255 21 1 1 0
+MOVWF 90 22 1 1 0
+RLF 128 3 1 1 0
+SUBWF 16 23 1 1 0
+XORWF 90 24 1 1 0
+IORWF 15 26 1 1 0
+RRF 1 3 1 1 0
+SUBLW 32 27 1 1 0
+COMF 0 28 1 1 0
+MOVF 0 3 1 0 0
+ANDWF 255 16 0 0 0

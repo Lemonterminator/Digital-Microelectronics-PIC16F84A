@@ -1,0 +1,13 @@
+v 4
+file / "/home/linan/DMII/vhdl/ex05/toplevel_alu_mem.vhd" "9b631bd1f744e9fa739d191284aebf3cbcecb1c6" "20260401122101.182":
+  entity toplevel_alu_mem at 1( 0) + 0 on 17;
+  architecture rtl of toplevel_alu_mem at 21( 522) + 0 on 18;
+file / "/home/linan/DMII/ALU/VHDL/alu.vhd" "cf5259b1a6947c13c53e1ec82603ba980da57986" "20260401122101.167":
+  entity alu at 1( 0) + 0 on 13;
+  architecture rtl of alu at 21( 518) + 0 on 14;
+file / "/home/linan/DMII/ALU/VHDL/alu_pkg.vhd" "9194c8a620618c46071634d9beaefc33dad0a9b2" "20260401122101.159":
+  package alu_pkg at 1( 0) + 0 on 11;
+  package body alu_pkg at 23( 597) + 0 on 12;
+file / "/home/linan/DMII/vhdl/ex05/dpram.vhd" "2add5dffcfb77aef108bec71b352d47a70dc2b26" "20260401122101.175":
+  entity dpram at 1( 0) + 0 on 15;
+  architecture rtl of dpram at 22( 572) + 0 on 16;

@@ -1,0 +1,17 @@
+Operation: ADDWF      | w_in: 15 | addr: 16 | mem_re: 1 | mem_we: 1 | mem_data_out: 15
+Operation: ANDWF      | w_in: 240 | addr: 16 | mem_re: 1 | mem_we: 1 | mem_data_out: 0
+Operation: BCF        | w_in: 170 | addr: 3 | mem_re: 1 | mem_we: 1 | mem_data_out: 168
+Operation: BTFSC      | w_in: 7 | addr: 3 | mem_re: 1 | mem_we: 0 | mem_data_out: 168
+Operation: BTFSS      | w_in: 4 | addr: 3 | mem_re: 1 | mem_we: 0 | mem_data_out: 168
+Operation: CLRF       | w_in: 85 | addr: 20 | mem_re: 1 | mem_we: 1 | mem_data_out: 0
+Operation: INCF       | w_in: 255 | addr: 21 | mem_re: 1 | mem_we: 1 | mem_data_out: 0
+Operation: MOVWF      | w_in: 90 | addr: 22 | mem_re: 1 | mem_we: 1 | mem_data_out: 0
+Operation: RLF        | w_in: 128 | addr: 3 | mem_re: 1 | mem_we: 1 | mem_data_out: 0
+Operation: SUBWF      | w_in: 16 | addr: 23 | mem_re: 1 | mem_we: 1 | mem_data_out: 16
+Operation: XORWF      | w_in: 90 | addr: 24 | mem_re: 1 | mem_we: 1 | mem_data_out: 90
+Operation: IORWF      | w_in: 15 | addr: 26 | mem_re: 1 | mem_we: 1 | mem_data_out: 15
+Operation: RRF        | w_in: 1 | addr: 3 | mem_re: 1 | mem_we: 1 | mem_data_out: 128
+Operation: SUBLW      | w_in: 32 | addr: 27 | mem_re: 1 | mem_we: 1 | mem_data_out: 32
+Operation: COMF       | w_in: 0 | addr: 28 | mem_re: 1 | mem_we: 1 | mem_data_out: 255
+Operation: MOVF       | w_in: 0 | addr: 3 | mem_re: 1 | mem_we: 0 | mem_data_out: 3
+Operation: ANDWF      | w_in: 255 | addr: 16 | mem_re: 0 | mem_we: 0 | mem_data_out: 0
